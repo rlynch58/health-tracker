@@ -23,13 +23,13 @@ import SwiftData
 /// property -- the computed property is plain Swift with no macro
 /// involvement.
 @Model
-final class Meal {
-    var id: UUID = UUID()
-    var dateKey: String = ""
-    var loggedAt: Date = Date()
-    var name: String = ""
+public final class Meal {
+    public var id: UUID = UUID()
+    public var dateKey: String = ""
+    public var loggedAt: Date = Date()
+    public var name: String = ""
 
-    @Attribute(.externalStorage) var photo: Data?
+    @Attribute(.externalStorage) public var photo: Data?
 
     private var _calories: Int?
     private var _protein: Int?
@@ -38,32 +38,32 @@ final class Meal {
     private var _sodium: Int?
     private var _sugar: Int?
 
-    var calories: Int? {
+    public var calories: Int? {
         get { _calories }
         set { _calories = newValue.map { Limits.clamp($0, max: Limits.maxCaloriesEntry) } }
     }
-    var protein: Int? {
+    public var protein: Int? {
         get { _protein }
         set { _protein = newValue.map { Limits.clamp($0, max: Limits.maxProteinEntry) } }
     }
-    var carbs: Int? {
+    public var carbs: Int? {
         get { _carbs }
         set { _carbs = newValue.map { Limits.clamp($0, max: Limits.maxCarbsEntry) } }
     }
-    var fat: Int? {
+    public var fat: Int? {
         get { _fat }
         set { _fat = newValue.map { Limits.clamp($0, max: Limits.maxFatEntry) } }
     }
-    var sodium: Int? {
+    public var sodium: Int? {
         get { _sodium }
         set { _sodium = newValue.map { Limits.clamp($0, max: Limits.maxSodium) } }
     }
-    var sugar: Int? {
+    public var sugar: Int? {
         get { _sugar }
         set { _sugar = newValue.map { Limits.clamp($0, max: Limits.maxSugarEntry) } }
     }
 
-    init(
+    public init(
         dateKey: String,
         loggedAt: Date = Date(),
         name: String = "",

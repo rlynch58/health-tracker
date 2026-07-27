@@ -22,24 +22,24 @@ import SwiftData
 /// read directly off a `MAX_*` constant for this exact field, since no such
 /// constant exists in the web app.
 @Model
-final class DailyLog {
-    var id: UUID = UUID()
-    var dateKey: String = ""
-    var updatedAt: Date = Date()
+public final class DailyLog {
+    public var id: UUID = UUID()
+    public var dateKey: String = ""
+    public var updatedAt: Date = Date()
 
     private var _waterOz: Int?
     private var _weightLbs: Double?
 
-    var waterOz: Int? {
+    public var waterOz: Int? {
         get { _waterOz }
         set { _waterOz = newValue.map { Limits.clamp($0, max: Limits.maxWaterGoal) } }
     }
-    var weightLbs: Double? {
+    public var weightLbs: Double? {
         get { _weightLbs }
         set { _weightLbs = newValue.map { Limits.clamp($0, max: Double(Limits.maxWeightLbs)) } }
     }
 
-    init(
+    public init(
         dateKey: String,
         waterOz: Int? = nil,
         weightLbs: Double? = nil,

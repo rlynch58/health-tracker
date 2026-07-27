@@ -20,9 +20,9 @@ import SwiftData
 /// fields clamp against their `*Goal` ceiling (sodium has no separate goal
 /// ceiling in the web app, so it reuses `maxSodium`, same as `Meal`).
 @Model
-final class GoalPeriod {
-    var id: UUID = UUID()
-    var effectiveDate: String = ""
+public final class GoalPeriod {
+    public var id: UUID = UUID()
+    public var effectiveDate: String = ""
 
     private var _calories: Int?
     private var _protein: Int?
@@ -30,28 +30,28 @@ final class GoalPeriod {
     private var _sodium: Int?
     private var _sugar: Int?
 
-    var calories: Int? {
+    public var calories: Int? {
         get { _calories }
         set { _calories = newValue.map { Limits.clamp($0, max: Limits.maxCaloriesGoal) } }
     }
-    var protein: Int? {
+    public var protein: Int? {
         get { _protein }
         set { _protein = newValue.map { Limits.clamp($0, max: Limits.maxProteinGoal) } }
     }
-    var water: Int? {
+    public var water: Int? {
         get { _water }
         set { _water = newValue.map { Limits.clamp($0, max: Limits.maxWaterGoal) } }
     }
-    var sodium: Int? {
+    public var sodium: Int? {
         get { _sodium }
         set { _sodium = newValue.map { Limits.clamp($0, max: Limits.maxSodium) } }
     }
-    var sugar: Int? {
+    public var sugar: Int? {
         get { _sugar }
         set { _sugar = newValue.map { Limits.clamp($0, max: Limits.maxSugarGoal) } }
     }
 
-    init(
+    public init(
         effectiveDate: String,
         calories: Int? = nil,
         protein: Int? = nil,

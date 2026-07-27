@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		720C2424301707E100229349 /* HealthTrackerData in Frameworks */ = {isa = PBXBuildFile; productRef = 720C2423301707E100229349 /* HealthTrackerData */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		720C2405301705DD00229349 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				720C2424301707E100229349 /* HealthTrackerData in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 				720C23F9301705DC00229349 /* HealthTracker */,
 				720C2407301705DD00229349 /* HealthTrackerTests */,
 				720C2411301705DD00229349 /* HealthTrackerUITests */,
+				720C2422301707E100229349 /* Frameworks */,
 				720C23F8301705DC00229349 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +96,13 @@
 				720C240E301705DD00229349 /* HealthTrackerUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		720C2422301707E100229349 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +125,7 @@
 			);
 			name = HealthTracker;
 			packageProductDependencies = (
+				720C2423301707E100229349 /* HealthTrackerData */,
 			);
 			productName = HealthTracker;
 			productReference = 720C23F7301705DC00229349 /* HealthTracker.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = 720C23EE301705DC00229349;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				720C24213017077C00229349 /* XCLocalSwiftPackageReference "../../HealthTrackerNative" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 720C23F8301705DC00229349 /* Products */;
 			projectDirPath = "";
@@ -395,6 +412,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HealthTracker/HealthTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N5N2YU8XHG;
@@ -427,6 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HealthTracker/HealthTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N5N2YU8XHG;
@@ -578,6 +597,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		720C24213017077C00229349 /* XCLocalSwiftPackageReference "../../HealthTrackerNative" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../HealthTrackerNative;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		720C2423301707E100229349 /* HealthTrackerData */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 720C24213017077C00229349 /* XCLocalSwiftPackageReference "../../HealthTrackerNative" */;
+			productName = HealthTrackerData;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 720C23EF301705DC00229349 /* Project object */;
 }
