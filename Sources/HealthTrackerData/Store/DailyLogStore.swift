@@ -9,17 +9,17 @@ import SwiftData
 /// are merged into a single canonical row before anything downstream ever
 /// sees them, and the extras are deleted.
 @MainActor
-final class DailyLogStore {
+public final class DailyLogStore {
     private let context: ModelContext
 
-    init(context: ModelContext) {
+    public init(context: ModelContext) {
         self.context = context
     }
 
     /// Returns the single `DailyLog` for `dateKey`, creating one if none
     /// exists, or merging duplicates into one if CloudKit sync produced more
     /// than one.
-    func fetchOrCreate(dateKey: String) -> DailyLog {
+    public func fetchOrCreate(dateKey: String) -> DailyLog {
         let descriptor = FetchDescriptor<DailyLog>(
             predicate: #Predicate { $0.dateKey == dateKey },
             sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
