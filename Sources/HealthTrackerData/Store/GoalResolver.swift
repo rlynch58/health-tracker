@@ -6,20 +6,23 @@ import SwiftData
 /// pure, static function over a plain array so it's testable without a
 /// `ModelContext`; `goals(for:)` is the ModelContext-backed convenience for
 /// real use.
+///
+/// `goals(for:)` reads through `GoalPeriodStore.cleanedPeriods()` rather
+/// than fetching `GoalPeriod` rows directly, so any CloudKit-duplicated
+/// `effectiveDate` groups are merged down to one row before `resolve`
+/// ever sees them.
 @MainActor
-final class GoalResolver {
+public final class GoalResolver {
     private let context: ModelContext
 
-    init(context: ModelContext) {
+    public init(context: ModelContext) {
         self.context = context
     }
 
-    /// Fetches all `GoalPeriod` rows and resolves the one in effect for `dateKey`.
-    func goals(for dateKey: String) -> GoalPeriod? {
-        let descriptor = FetchDescriptor<GoalPeriod>(
-            sortBy: [SortDescriptor(\.effectiveDate, order: .forward)]
-        )
-        guard let periods = try? context.fetch(descriptor) else { return nil }
+    /// Fetches all `GoalPeriod` rows (deduplicated) and resolves the one in
+    /// effect for `dateKey`.
+    public func goals(for dateKey: String) -> GoalPeriod? {
+        let periods = GoalPeriodStore(context: context).cleanedPeriods()
         return Self.resolve(for: dateKey, in: periods)
     }
 
@@ -29,7 +32,7 @@ final class GoalResolver {
     /// there is no further fallback, since this model carries every field a
     /// caller could need (see the type's header comment: no
     /// merge-with-global-goals step is ported from the web app).
-    nonisolated static func resolve(for dateKey: String, in periods: [GoalPeriod]) -> GoalPeriod? {
+    public nonisolated static func resolve(for dateKey: String, in periods: [GoalPeriod]) -> GoalPeriod? {
         guard !periods.isEmpty else { return nil }
         var match: GoalPeriod?
         for period in periods where period.effectiveDate <= dateKey {

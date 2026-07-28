@@ -48,14 +48,25 @@ public final class DailyLogStore {
     /// distinction on `waterOz` (§8) across a merge: a device that only
     /// logged weight contributes `nil` for water, not a competing `0`.
     ///
+    /// The secondary sort on `id.uuidString` makes the choice of canonical
+    /// row deterministic across devices even when two rows share an
+    /// identical `updatedAt` -- without it, two devices could each pick a
+    /// different canonical row and delete the other's, and CloudKit
+    /// resolves delete-vs-modify in favor of the delete, so the whole day's
+    /// row could vanish instead of merging.
+    ///
     /// `logs` need not be pre-sorted; this sorts by `updatedAt` itself.
     private func merge(_ logs: [DailyLog]) -> DailyLog {
-        let sorted = logs.sorted { $0.updatedAt > $1.updatedAt }
+        let sorted = logs.sorted {
+            if $0.updatedAt != $1.updatedAt {
+                return $0.updatedAt > $1.updatedAt
+            }
+            return $0.id.uuidString > $1.id.uuidString
+        }
         let canonical = sorted[0]
 
         canonical.waterOz = sorted.first(where: { $0.waterOz != nil })?.waterOz
         canonical.weightLbs = sorted.first(where: { $0.weightLbs != nil })?.weightLbs
-        canonical.updatedAt = sorted[0].updatedAt
 
         for extra in sorted.dropFirst() {
             context.delete(extra)

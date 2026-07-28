@@ -25,7 +25,11 @@ struct HealthTrackerApp: App {
         }
 
         let storeURL = appGroupURL.appendingPathComponent("HealthTracker.sqlite")
-        let modelConfiguration = ModelConfiguration(schema: schema, url: storeURL)
+        let modelConfiguration = ModelConfiguration(
+            schema: schema,
+            url: storeURL,
+            cloudKitDatabase: .private("iCloud.com.roblynch.HealthTracker")
+        )
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])

@@ -19,10 +19,15 @@ import SwiftData
 /// see that file's header comment for why `didSet` was avoided. All five
 /// fields clamp against their `*Goal` ceiling (sodium has no separate goal
 /// ceiling in the web app, so it reuses `maxSodium`, same as `Meal`).
+///
+/// `updatedAt` exists so `GoalPeriodStore` can reconcile CloudKit-created
+/// duplicate rows for the same `effectiveDate`, the same way `DailyLog`
+/// already does for `dateKey`.
 @Model
 public final class GoalPeriod {
     public var id: UUID = UUID()
     public var effectiveDate: String = ""
+    public var updatedAt: Date = Date()
 
     private var _calories: Int?
     private var _protein: Int?
@@ -57,10 +62,12 @@ public final class GoalPeriod {
         protein: Int? = nil,
         water: Int? = nil,
         sodium: Int? = nil,
-        sugar: Int? = nil
+        sugar: Int? = nil,
+        updatedAt: Date = Date()
     ) {
         self.id = UUID()
         self.effectiveDate = effectiveDate
+        self.updatedAt = updatedAt
         // Routed through the clamped setters above.
         self.calories = calories
         self.protein = protein
